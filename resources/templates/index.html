@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizzarendelés</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/script.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+<div class="form-container">
+    <h1 class="title">Megrendelés</h1>
+    <form>
+        <div class="form-group">
+            <label for="pizzaType">Válassz pizzafajtát:</label>
+            <select id="pizzaType" name="pizzaType">
+                <option value="ham">Sonkás</option>
+                <option value="mushroom">Gombás</option>
+                <option value="vegan">Vegán</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Méret:</label>
+            <div class="radio-group">
+                <label><input type="radio" id="bigRadio" name="pizzaSize" value="big"> Nagy</label>
+                <label><input type="radio" id="smallRadio" name="pizzaSize" value="small"> Kicsi</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label><input type="checkbox" id="extraCheese" name="extraCheese"> Extra sajttal (Csak a sonkáshoz választható)</label>
+        </div>
+        <div class="form-group">
+            <label for="name">Név:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Telefonszám:</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Megrendelés">
+        </div>
+    </form>
+</div>
+</body>
+
+</html>
