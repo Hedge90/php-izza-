@@ -3,29 +3,35 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-header("Access-Control-Allow-Origin: *");
-
-echo 'hi';
-
-
 include('db_connect.php'); // Include the database connection file
+
+$response = array();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pizzaType = $_POST['pizzaType'];
     $pizzaSize = $_POST['pizzaSize'];
-    $extraCheese = isset($_POST['extraCheese']) ? $_POST['extraCheese'] : 'No';
+    $extraCheese = isset($_POST['extraCheese']) && $_POST['extraCheese'] === '1' ? 1 : 0;
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
 
-    echo $pizzaType;
-    echo $pizzaSize;
-    echo $extraCheese;
-    echo $name;
-    echo $email;
-    echo $phone;
+    if (empty($name)) {
+        echo "Error: Name is required!";
+        $response['nameError'] = true;
+        return;
+    }
 
-    // Validate and sanitize the data if needed
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Error: Invalid email format!";
+        $response['emailError'] = true;
+        return;
+    }
+
+    if (!preg_match("/^[0-9+]+$/", $phone)) {
+        echo "Error: Invalid phone number!";
+        $response['phoneError'] = true;
+        return;
+    }
 
     $insertSql = "INSERT INTO pizza (nev, email, telefon, pizza, meret, extrasajt, ido)
                   VALUES ('$name', '$email', '$phone', '$pizzaType', '$pizzaSize', '$extraCheese', CURRENT_TIMESTAMP)";
@@ -37,4 +43,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+echo json_encode($response);
 ?>

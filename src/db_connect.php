@@ -16,7 +16,7 @@ $createTableSql = "CREATE TABLE IF NOT EXISTS pizza (
     azon INT(5) AUTO_INCREMENT PRIMARY KEY,
     nev VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    telefon VARCHAR(20) NOT NULL,  -- Changed to VARCHAR for phone number
+    telefon VARCHAR(100) NOT NULL,
     pizza VARCHAR(50) NOT NULL,
     meret VARCHAR(30) NOT NULL,
     extrasajt TINYINT(1) NOT NULL,
