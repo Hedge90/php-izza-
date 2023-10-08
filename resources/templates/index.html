@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<div class="form-container">
+<div id="form-container">
     <h1 class="title">Megrendelés</h1>
     <form>
         <div class="form-group">
@@ -48,6 +48,10 @@
             <input type="submit" value="Megrendelés">
         </div>
     </form>
+</div>
+<div id="successMessage" style="display: none;">
+    <h2>Sikeres megrendelés!</h2>
+    <p>A megrendelés azonosítója: <span id="orderId"></span></p>
 </div>
 </body>
 

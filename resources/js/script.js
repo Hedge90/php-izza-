@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('form').submit(function(event) {
-        event.preventDefault(); // Prevent the default form submission behavior
+        event.preventDefault();
 
         const name = $('#name').val().trim();
         const email = $('#email').val().trim();
@@ -9,17 +9,24 @@ $(document).ready(function() {
         const pizzaSize = $('input[name="pizzaSize"]:checked').val();
 
         if (name.length < 6 || !/\s/.test(name)) {
-            alert('A névnek legalább 6 karaktert és egy szóközt kell tartalmaznia.');
+            alert('A névnek legalább 6 karakter hosszúnak kell lennie, és tartalmaznia kell szóközt!');
+            return;
+        }
+
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (!emailRegex.test(email)) {
+            alert('Az email cím érvénytelen!');
             return;
         }
 
         if (!/^[0-9+]+$/.test(phone)) {
-            alert('A megadott telefonszám érvénytelen. A telefonszám csak számokat és a "+" jelet tartalmazhatja.');
+            alert('A telefonszám csak számokat és a "+" jelet tartalmazhatja.');
             return;
         }
 
         if (!name || !email || !phone || !pizzaType || !pizzaSize) {
-            alert('A megrendeléshez kérjük, tölts ki minden mezőt!');
+            alert('A megrendeléshez kérjük, töltsd ki az összes mezőt, és válassz méretet!');
             return;
         }
 
@@ -36,14 +43,19 @@ $(document).ready(function() {
             type: 'POST',
             url: 'http://localhost:63342/PizzaApp/src/process_order.php',
             data: formData,
+            dataType: 'json',
             success: function(response) {
-                // Handle the response from the server
-                alert('Köszönjük, a megrendelést rögzítettük!');
-                // You can also update the UI or redirect the user after successful submission
+                if (response.success) {
+                    $('#form-container').fadeOut(500, function() {
+                        $('#successMessage').fadeIn(500);
+                        $('#orderId').text(response.orderId);
+                    });
+                } else {
+                    alert('Hiba: ' + response.error);
+                }
             },
-            error: function() {
-                // Handle errors if the request fails
-                alert('Hiba lépett fel a megrendelés rögzítése során. Kérjük, próbálja újra!');
+            error: function(response) {
+                alert('Hiba lépett fel a megrendelés rögzítése során. Kérjük, próbálkozz újra!');
             }
         });
     });

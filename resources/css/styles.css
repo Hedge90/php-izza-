@@ -4,7 +4,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.form-container {
+#form-container {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
@@ -63,4 +63,30 @@ body {
 
 .radio-group label {
     margin-right: 20px;
+}
+
+#successMessage {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid green;
+    border-radius: 10px;
+    background-color: rgba(0, 255, 0, 0.2);
+    text-align: center;
+}
+
+#successMessage h2 {
+    color: green;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+#successMessage p {
+    font-size: 18px;
+}
+
+#successMessage #orderId {
+    font-weight: bold;
+    font-size: 20px;
+    color: blue;
 }
